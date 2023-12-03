@@ -11,27 +11,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    let tableView : UITableView = {
-        let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return table
-    }()
+    @IBOutlet var tableView : UITableView!
+   // @IBOutlet var barButton : UIBarButtonItem!
     
     private var models = [ToDoListItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Core Data To Do List"
-        view.addSubview(tableView)
         getAllItems()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.frame = view.bounds
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
     }
     
-    @objc private func didTapAdd(){
+    @IBAction private func didTapAdd(){
         let alert = UIAlertController(title: "New Item", message: "Enter New Item", preferredStyle: .alert)
         alert.addTextField(configurationHandler: nil)
         alert.addAction(UIAlertAction(title: "Submit", style: .cancel, handler: { [weak self] _ in
